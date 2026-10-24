@@ -1,0 +1,12 @@
+{
+  "name": "claxen-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CLAXEN portfolio: static, SEO-first, no dependencies.",
+  "scripts": {
+    "build": "node tools/build.js",
+    "audit": "node tools/audit.js dist",
+    "images": "node tools/make-images.js",
+    "domain": "node tools/set-domain.js"
+  }
+}

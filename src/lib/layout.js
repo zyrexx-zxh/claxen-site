@@ -45,8 +45,7 @@ ${p.noindex ? '' : `<link rel="canonical" href="${canonical}">`}
 <meta name="author" content="${cfg.person}">
 ${p.keywords ? `<meta name="keywords" content="${esc(p.keywords)}">` : ''}
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#F3F4F7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1022B8" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#16141B">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="${cfg.name}">
 <meta property="og:locale" content="en_US">
@@ -68,9 +67,9 @@ ${p.noindex ? '' : `<meta property="og:url" content="${canonical}">`}
 ${ctx.mode === 'preview' ? '' : `<link rel="preload" href="${h.asset('assets/fonts/mona-display.woff', false)}" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="${h.asset('assets/fonts/mona-text.woff', false)}" as="font" type="font/woff" crossorigin>`}
 <script>
-/* theme before first paint: saved choice, else the system preference (dark maps to the ultramarine theme) */
-(function(){var d=document.documentElement;d.classList.add('js');var t=null;try{t=localStorage.getItem('cx-theme')}catch(e){}
-if(t!=='paper'&&t!=='blue'){t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'blue':'paper'}
+/* theme before first paint: saved choice, else dusk (the soft dark theme) */
+(function(){var d=document.documentElement;d.classList.add('js');var t=null;try{t=localStorage.getItem('cx-theme2')}catch(e){}
+if(t!=='dusk'&&t!=='sand'){t='dusk'}
 d.setAttribute('data-theme',t)})();
 </script>
 <link rel="stylesheet" href="${h.asset('assets/css/site.css')}">
@@ -121,7 +120,7 @@ function palette(ctx) {
     { t: 'Start a project', d: 'Contact', h: h.anchor('contact'), k: 'contact brief hire quote' },
     { t: 'Copy my email', d: 'Action', a: 'copy-email', k: 'email copy outlook' },
     { t: 'Open Telegram', d: 'Action', a: 'telegram', k: 'telegram t.me message chat' },
-    { t: 'Switch theme', d: 'Action', a: 'theme', k: 'theme dark light blue paper night' }
+    { t: 'Switch theme', d: 'Action', a: 'theme', k: 'theme dark light dusk sand night day' }
   ];
   return `<dialog class="palette" id="palette" aria-label="Command menu">
   <form method="dialog" class="palette__box">
@@ -162,9 +161,9 @@ function footer(ctx) {
 function page(ctx, p, bodyHtml, scripts) {
   const h = helpers(ctx);
   return `<!doctype html>
-<html lang="en" data-theme="paper">
+<html lang="en" data-theme="dusk">
 ${head(ctx, p)}
-<body class="${p.bodyClass || ''}">
+<body class="${p.bodyClass || ''}" data-stage="${h.asset('assets/js/stage.js')}">
 ${header(ctx)}
 <main id="main">
 ${bodyHtml}

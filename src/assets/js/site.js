@@ -35,18 +35,18 @@
   root.classList.add('js-ready');
 
   /* ---------- theme ---------- */
-  var THEME_COLORS = { paper: '#F3F4F7', blue: '#1022B8' };
+  var THEME_COLORS = { sand: '#E6DECE', dusk: '#16141B' };
   function applyTheme(t) {
     root.setAttribute('data-theme', t);
-    try { localStorage.setItem('cx-theme', t); } catch (e) {}
+    try { localStorage.setItem('cx-theme2', t); } catch (e) {}
     $$('meta[name="theme-color"]').forEach(function (m) { m.removeAttribute('media'); m.setAttribute('content', THEME_COLORS[t]); });
     $$('[data-theme-toggle]').forEach(function (b) {
-      b.setAttribute('aria-pressed', t === 'blue' ? 'true' : 'false');
-      b.setAttribute('aria-label', t === 'blue' ? 'Switch to the light paper theme' : 'Switch to the blue theme');
+      b.setAttribute('aria-pressed', t === 'sand' ? 'true' : 'false');
+      b.setAttribute('aria-label', t === 'sand' ? 'Switch to the dark dusk theme' : 'Switch to the light sand theme');
     });
   }
   function toggleTheme(src) {
-    var next = root.getAttribute('data-theme') === 'blue' ? 'paper' : 'blue';
+    var next = root.getAttribute('data-theme') === 'sand' ? 'dusk' : 'sand';
     if (doc.startViewTransition && !reduce) {
       var r = (src && src.getBoundingClientRect) ? src.getBoundingClientRect() : { left: innerWidth - 60, top: 40, width: 0, height: 0 };
       var x = r.left + r.width / 2, y = r.top + r.height / 2;
@@ -59,13 +59,8 @@
     } else applyTheme(next);
   }
   safe(function theme() {
-    applyTheme(root.getAttribute('data-theme') || 'paper');
+    applyTheme(root.getAttribute('data-theme') || 'dusk');
     $$('[data-theme-toggle]').forEach(function (b) { b.addEventListener('click', function () { toggleTheme(b); }); });
-    if (window.matchMedia) {
-      var m = matchMedia('(prefers-color-scheme: dark)');
-      var fn = function () { var saved = null; try { saved = localStorage.getItem('cx-theme'); } catch (e) {} if (!saved) applyTheme(m.matches ? 'blue' : 'paper'); };
-      m.addEventListener ? m.addEventListener('change', fn) : m.addListener && m.addListener(fn);
-    }
   });
 
   /* ---------- mobile menu ---------- */
@@ -173,12 +168,12 @@
     var ls = $$('.line__in', h);
     ls.forEach(function (el, i) {
       el.style.setProperty('--d', i);
-      var rec = { el: el, cur: reduce ? BASE : 74, target: BASE, delay: reduce ? 0 : 140 + i * 110 };
+      var rec = { el: el, cur: 74, target: BASE, delay: 140 + i * 110 };
       el.style.setProperty('--w', rec.cur);
       kin.lines.push(rec);
     });
     kin.visible.add(h);
-    setTimeout(function () { h.classList.add('done'); }, reduce ? 0 : 1500);
+    setTimeout(function () { h.classList.add('done'); }, 1500);
     kickKinetic();
   }
   function kickKinetic() { if (!kin.raf) { kin.last = performance.now(); kin.raf = requestAnimationFrame(kinTick); } }
@@ -229,8 +224,8 @@
 
   /* ---------- scroll reveals ---------- */
   safe(function reveals() {
-    if (reduce || !('IntersectionObserver' in window)) { root.classList.remove('js-ready'); root.classList.add('js'); return; }
-    var sel = '.sec__head > :not([data-kinetic]),.get,.qa,.minis > *,.panel,.budget,.brief,.ticket,.tabs__list,.direct,.stack-sec > *,.fit__cols > *,.cta__in > :not([data-kinetic]),.foot__col,.nf__in > :not(h1)';
+    if (!('IntersectionObserver' in window)) { root.classList.remove('js-ready'); root.classList.add('js'); return; }
+    var sel = '.sec__head > :not([data-kinetic]),.get,.qa,.minis > *,.panel,.budget,.tabs__list,.direct,.stack-sec > *,.fit__cols > *,.cta__in > :not([data-kinetic]),.foot__col,.nf__in > :not(h1)';
     var els = $$(sel);
     els.forEach(function (el) {
       var sibs = el.parentNode ? Array.prototype.indexOf.call(el.parentNode.children, el) : 0;

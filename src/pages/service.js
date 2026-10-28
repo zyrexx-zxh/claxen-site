@@ -33,7 +33,7 @@ function render(ctx, s) {
           <p class="svc__blurb">${esc(o.blurb)}</p>
           <span class="svc__go" aria-hidden="true">${icons.arrowUpRight}</span>
         </div>
-        <div class="svc__art" aria-hidden="true">${shapeSvg(o.id, 'svc__shape')}</div>
+        <div class="svc__art" aria-hidden="true" data-3d="${o.id}">${shapeSvg(o.id, 'svc__shape')}</div>
       </article>`).join('');
 
   const body = `
@@ -53,7 +53,7 @@ function render(ctx, s) {
       </div>
       <ul class="tags tags--hero">${s.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
     </div>
-    <div class="shero__art" aria-hidden="true">${shapeSvg(s.id, 'shero__shape')}</div>
+    <div class="shero__art" aria-hidden="true" data-3d="${s.id}" data-3d-mode="hero">${shapeSvg(s.id, 'shero__shape')}</div>
   </div>
 </section>
 
@@ -130,7 +130,7 @@ function render(ctx, s) {
   </div>
 </section>`;
 
-  return { meta, body, scripts: ['site'] };
+  return { meta, body, scripts: ['site', 'fx'] };
 }
 
 module.exports = { render };

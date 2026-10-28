@@ -1,5 +1,5 @@
 /* The four "machines" of the CLAXEN identity — flat geometric shapes, each one a service.
-   Colours come from CSS custom properties so they re-theme (paper / ultramarine) for free. */
+   Colours come from CSS custom properties so they re-theme (dusk / sand) for free. */
 
 // inner markup, drawn in a 120 x 120 box
 const inner = {

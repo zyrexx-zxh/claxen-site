@@ -11,7 +11,7 @@ fs.mkdirSync(OUT, { recursive: true });
 const fontCss = `
 @font-face{font-family:"Mona Display";src:url(${path.join(SRC, 'assets/fonts/mona-display.woff')});font-weight:800;font-stretch:75% 125%}
 @font-face{font-family:"Mona Text";src:url(${path.join(SRC, 'assets/fonts/mona-text.woff')});font-weight:400 700}
-:root{--c-web:#2A3BFF;--on-web:#fff;--c-bot:#FFD21A;--c-py:#0B0C10;--on-py:#fff;--c-ai:#C9B7FF;--ink-fixed:#0B0C10;--sun:#FFD21A}
+:root{--c-web:#9AA5EE;--on-web:#16141B;--c-bot:#D9A85F;--c-py:#78BFA8;--on-py:#16141B;--c-ai:#B3A5E0;--ink-fixed:#16141B;--sun:#D9A85F}
 *{box-sizing:border-box;margin:0}body{width:1200px;height:630px;overflow:hidden;font-family:"Mona Text",sans-serif}
 .d{font-family:"Mona Display";font-weight:800;letter-spacing:-.022em;line-height:.93;font-variation-settings:"wdth" 92}
 .mark{display:flex;align-items:center;gap:14px;font-family:"Mona Display";font-weight:800;font-size:34px}
@@ -20,15 +20,15 @@ const fontCss = `
 svg.shape{overflow:visible}
 `;
 const markFor = (key) => {
-  const [a, b] = key === 'web' ? ['#fff', '#FFD21A'] : key === 'bot' ? ['#2A3BFF', '#0B0C10'] : ['#2A3BFF', '#FFD21A'];
+  const [a, b] = key === 'web' ? ['#C9CCF3', '#D9A85F'] : key === 'bot' ? ['#3C4594', '#16141B'] : key === 'ai' ? ['#3C4594', '#16141B'] : key === 'py' ? ['#78BFA8', '#D9A85F'] : ['#9AA5EE', '#D9A85F'];
   return `<svg viewBox="0 0 28 28"><rect x="1" y="3" width="17" height="17" fill="${a}"/><circle cx="18" cy="18" r="9" fill="${b}"/></svg>`;
 };
 const THEMES = {
-  home: { bg: '#F3F4F7', fg: '#0B0C10', mute: '#4B4E58', vars: '' },
-  web: { bg: '#2A3BFF', fg: '#fff', mute: '#DCE0FF', vars: '--c-web:#fff;--on-web:#2A3BFF;' },
-  bot: { bg: '#FFD21A', fg: '#0B0C10', mute: '#34331F', vars: '--c-bot:#0B0C10;--ink-fixed:#FFD21A;' },
-  py: { bg: '#0B0C10', fg: '#F3F4F7', mute: '#B4B8C6', vars: '--c-py:#C9B7FF;--on-py:#0B0C10;' },
-  ai: { bg: '#C9B7FF', fg: '#0B0C10', mute: '#34304A', vars: '--c-ai:#0B0C10;--ink-fixed:#C9B7FF;' }
+  home: { bg: '#16141B', fg: '#EAE4D8', mute: '#ABA4B0', vars: '' },
+  web: { bg: '#2E3374', fg: '#F1EBDF', mute: '#CACCEC', vars: '--c-web:#C9CCF3;--on-web:#2E3374;' },
+  bot: { bg: '#CB9C57', fg: '#16141B', mute: '#46381F', vars: '--c-bot:#16141B;--ink-fixed:#CB9C57;' },
+  py: { bg: '#0F0E13', fg: '#EAE4D8', mute: '#B7B0BA', vars: '--c-py:#78BFA8;--on-py:#0F0E13;' },
+  ai: { bg: '#A194CE', fg: '#16141B', mute: '#3A3354', vars: '--c-ai:#16141B;--ink-fixed:#A194CE;' }
 };
 function page(key) {
   const t = THEMES[key];
@@ -65,7 +65,7 @@ function page(key) {
     await shot(`<style>${fontCss}</style>${page(key)}`, 1200, 630, `og-${slug}.png`);
   }
   const svg = fs.readFileSync(path.join(SRC, 'favicon.svg'), 'utf8');
-  const icon = (size, pad, round) => `<style>*{margin:0}body{width:${size}px;height:${size}px;background:#2A3BFF;overflow:hidden;display:grid;place-items:center}svg{width:${size * (1 - pad * 2)}px;height:${size * (1 - pad * 2)}px}</style>${svg.replace('rx="14"', 'rx="0"')}`;
+  const icon = (size, pad, round) => `<style>*{margin:0}body{width:${size}px;height:${size}px;background:#16141B;overflow:hidden;display:grid;place-items:center}svg{width:${size * (1 - pad * 2)}px;height:${size * (1 - pad * 2)}px}</style>${svg.replace('rx="14"', 'rx="0"')}`;
   await shot(`<style>*{margin:0}body{width:32px;height:32px}svg{width:32px;height:32px}</style>${svg}`, 32, 32, 'favicon-32.png', true);
   await shot(icon(180, 0, 0), 180, 180, 'apple-touch-icon.png');
   await shot(icon(192, 0.1, 0), 192, 192, 'icon-192.png');

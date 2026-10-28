@@ -1,0 +1,82 @@
+<title>CLAXEN Site Preview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+@font-face{font-family:"Mona Display";src:url(site/assets/fonts/mona-display.woff) format("woff");font-weight:800;font-stretch:75% 125%;font-display:swap}
+@font-face{font-family:"Mona Text";src:url(site/assets/fonts/mona-text.woff) format("woff");font-weight:400 700;font-display:swap}
+/* layout: one calm column, five colour-blocked cards that mirror the shapes of the site itself */
+:root{
+  --bg:#16141B;--fg:#EAE4D8;--mute:#ABA4B0;--line:rgba(234,228,216,.2);--chip:#24202D;
+  --blue:#3C4594;--sun:#CB9C57;--lilac:#A194CE;--ink:#14121A;--paper:#EAE4D8;
+  --c-web:#C9CCF3;--on-web:#3C4594;--c-bot:#14121A;--c-py:#78BFA8;--on-py:#0F0E13;--c-ai:#14121A;--ink-fixed:#CB9C57;--sun-fixed:#CB9C57;
+  --f-display:"Mona Display",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;--f-text:"Mona Text",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 1.05rem/1.6 var(--f-text);padding-block:clamp(28px,6vw,72px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{width:min(100%,1080px);margin-inline:auto;display:grid;gap:clamp(24px,4vw,40px)}
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-family:var(--f-display);font-weight:800;font-size:1.4rem}
+.top svg{width:30px;height:30px}
+.pill{font-family:var(--f-text);font-weight:600;font-size:.82rem;padding:.3em .85em;border:1.5px solid var(--line);border-radius:99px;color:var(--mute)}
+h1{margin:0;font-family:var(--f-display);font-weight:800;font-size:clamp(2.3rem,1.2rem + 5vw,5rem);line-height:.95;letter-spacing:-.02em;font-variation-settings:"wdth" 92;text-wrap:balance;max-width:14ch}
+.lead{margin:0;color:var(--mute);font-size:1.15rem;max-width:42ch}
+.cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.card{position:relative;display:grid;align-content:start;gap:8px;min-height:230px;padding:24px;border-radius:26px;text-decoration:none;overflow:hidden;isolation:isolate;transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
+.card:hover{transform:translateY(-4px) rotate(-.6deg)}
+.card:focus-visible{outline:3px solid var(--fg);outline-offset:3px}
+.card__t{font-family:var(--f-display);font-weight:800;font-size:1.9rem;line-height:1;letter-spacing:-.015em;max-width:11ch}
+.card__d{font-size:.98rem;line-height:1.45;max-width:20em;min-width:0}
+.card__shape{position:absolute;right:-6%;bottom:-8%;width:44%;height:auto;opacity:.95;z-index:-1;transition:transform .6s cubic-bezier(.3,1.5,.5,1)}
+.card:hover .card__shape{transform:rotate(-8deg) scale(1.06)}
+.card--home{background:var(--chip);color:var(--fg);border:2px solid var(--line)}
+.card--home .card__shape{--c-web:#9AA5EE;--c-bot:#D9A85F}
+.card--web{background:#3C4594;color:#F1EBDF;--c-web:#C9CCF3;--on-web:#3C4594}
+.card--bot{background:#CB9C57;color:#14121A;--c-bot:#14121A;--ink-fixed:#CB9C57}
+.card--py{background:#0F0E13;color:#EAE4D8;--c-py:#78BFA8;--on-py:#0F0E13}
+.card--ai{background:#A194CE;color:#14121A;--c-ai:#14121A;--ink-fixed:#A194CE}
+.notes{display:grid;gap:12px;border-top:1.5px solid var(--line);padding-top:24px}
+.notes h2{margin:0;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.notes ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;max-width:62ch}
+.notes li{display:flex;gap:.8em;min-width:0}
+.notes li::before{content:"";flex:none;width:.55em;height:.55em;margin-top:.62em;background:currentColor;transform:rotate(45deg)}
+.hint{margin:0;color:var(--mute);font-size:.95rem;max-width:60ch}
+kbd{font:600 .85em var(--f-text);padding:.1em .5em;border:1.5px solid var(--line);border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<main class="wrap">
+  <header class="top"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="3" width="17" height="17" fill="#9AA5EE"/><circle cx="18" cy="18" r="9" fill="#D9A85F"/></svg>CLAXEN<span class="pill">Preview</span></header>
+  <h1>The new site, five pages.</h1>
+  <p class="lead">Open any page. Everything works here: the menu, both themes (dusk and sand), the three demos, the budget slider and the brief builder.</p>
+  <ul class="cards">
+    <li><a class="card card--home" href="site/index.html" target="_blank" rel="noopener"><span class="card__t">Home</span><span class="card__d">3D service ring, stacking cards, live demos, budget slider and brief builder.</span><svg class="card__shape" viewBox="0 0 120 120" aria-hidden="true"><rect x="8" y="18" width="70" height="70" fill="var(--c-web)"/><circle cx="78" cy="78" r="36" fill="var(--c-bot)"/></svg></a></li>
+    <li><a class="card card--web" href="site/website-development/index.html" target="_blank" rel="noopener"><span class="card__t">Website development</span><span class="card__d">Fast, responsive sites and web apps that look the part and get found on Google.</span><svg class="shape shape--web card__shape" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+    <rect class="s-body" x="8" y="10" width="104" height="100" rx="5" fill="var(--c-web)"/>
+    <circle cx="21" cy="23" r="3.4" fill="var(--on-web)" opacity=".9"/>
+    <circle cx="32" cy="23" r="3.4" fill="var(--on-web)" opacity=".6"/>
+    <circle cx="43" cy="23" r="3.4" fill="var(--on-web)" opacity=".35"/>
+    <rect class="s-line s-line--a" x="21" y="42" width="56" height="9" fill="var(--on-web)"/>
+    <rect class="s-line s-line--b" x="21" y="57" width="36" height="5" fill="var(--on-web)" opacity=".55"/>
+    <rect x="21" y="78" width="32" height="15" rx="7.5" fill="var(--sun)"/>
+    <rect x="66" y="68" width="32" height="28" fill="var(--on-web)" opacity=".18"/></svg></a></li>
+    <li><a class="card card--bot" href="site/bot-development/index.html" target="_blank" rel="noopener"><span class="card__t">Bot development</span><span class="card__d">Telegram and Discord bots that answer, sell, moderate and run your community around the clock.</span><svg class="shape shape--bot card__shape" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+    <circle class="s-body" cx="60" cy="60" r="54" fill="var(--c-bot)"/>
+    <path d="M30 41a11 11 0 0 1 11-11h38a11 11 0 0 1 11 11v20a11 11 0 0 1-11 11H62L48 86V72H41a11 11 0 0 1-11-11z" fill="var(--ink-fixed)"/>
+    <circle class="s-dot s-dot--1" cx="46" cy="51" r="4.2" fill="var(--c-bot)"/>
+    <circle class="s-dot s-dot--2" cx="60" cy="51" r="4.2" fill="var(--c-bot)"/>
+    <circle class="s-dot s-dot--3" cx="74" cy="51" r="4.2" fill="var(--c-bot)"/></svg></a></li>
+    <li><a class="card card--py" href="site/python-automation/index.html" target="_blank" rel="noopener"><span class="card__t">Python automations</span><span class="card__d">Scripts and backends that remove repetitive work: scraping, reports, integrations and scheduled jobs.</span><svg class="shape shape--py card__shape" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+    <path class="s-body" d="M20 8 112 60 20 112z" fill="var(--c-py)" stroke="var(--c-py)" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M32 46 50 60 32 74" fill="none" stroke="var(--on-py)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect class="s-cursor" x="55" y="73" width="17" height="5.5" fill="var(--on-py)"/></svg></a></li>
+    <li><a class="card card--ai" href="site/ai-automation-tools/index.html" target="_blank" rel="noopener"><span class="card__t">AI automated tools</span><span class="card__d">AI-powered tools and agents that write, summarise and decide, wired into the apps you already use.</span><svg class="shape shape--ai card__shape" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+    <path class="s-body" d="M60 4C65 38 82 55 116 60 82 65 65 82 60 116 55 82 38 65 4 60 38 55 55 38 60 4Z" fill="var(--c-ai)"/>
+    <path class="s-spark" d="M97 12C98.5 22 103 26.5 113 28 103 29.5 98.5 34 97 44 95.5 34 91 29.5 81 28 91 26.5 95.5 22 97 12Z" fill="var(--ink-fixed)"/></svg></a></li>
+  </ul>
+  <p class="hint">On a computer, press <kbd>Ctrl</kbd> + <kbd>K</kbd> (or <kbd>/</kbd>) on any page to open the command menu, and move the pointer over the big headlines.</p>
+  <section class="notes" aria-labelledby="n-h">
+    <h2 id="n-h">Before it goes live</h2>
+    <ul>
+      <li>The address in the links and sitemap is a placeholder. One command swaps in your real domain.</li>
+      <li>The process steps, FAQ answers and the pricing guide are drafts. Edit them to match how you work.</li>
+      <li>There are no testimonials or client numbers, on purpose. Add real ones when you have them.</li>
+    </ul>
+  </section>
+</main>

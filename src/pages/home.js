@@ -47,7 +47,7 @@ function hero(h) {
         <a class="btn btn--line btn--lg" href="#services"><span>See what I build</span>${icons.arrowDown}</a>
       </div>
     </div>
-    <div class="loop" data-loop>
+    <div class="loop" data-loop data-3d="hero">
       ${loopSvg(h)}
       <div class="loop__center" aria-live="off">
         <p class="loop__kicker">Now running</p>
@@ -63,7 +63,7 @@ function hero(h) {
 
 function services(h) {
   const cards = cfg.services.map((s, i) => `
-    <article class="svc svc--${s.id}" style="--i:${i}">
+    <article class="svc svc--${s.id}" style="--i:${i}" data-e3d>
       <div class="svc__body">
         <p class="svc__no">0${i + 1}</p>
         <h3 class="svc__name"><a class="svc__link" href="${h.page(s.slug)}">${esc(s.name)}</a></h3>
@@ -71,7 +71,7 @@ function services(h) {
         <ul class="tags">${s.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
         <span class="svc__go" aria-hidden="true">${icons.arrowUpRight}</span>
       </div>
-      <div class="svc__art" aria-hidden="true">${shapeSvg(s.id, 'svc__shape')}</div>
+      <div class="svc__art" aria-hidden="true" data-3d="${s.id}">${shapeSvg(s.id, 'svc__shape')}</div>
     </article>`).join('');
   return `<section class="band band--alt sec" id="services" aria-labelledby="services-h">
   <div class="wrap">
@@ -118,7 +118,7 @@ function demos() {
           <p>Telegram bots can answer questions, take orders and collect requests at any hour. This one walks you through a project brief and hands the result to the form below.</p>
           <ul class="ticks"><li>Buttons instead of typing</li><li>Instant replies, any hour</li><li>Hands the details to a person</li></ul>
         </div>
-        <div class="phone" data-bot>
+        <div class="phone" data-bot data-e3d="y">
           <div class="phone__bar"><span class="avatar" aria-hidden="true">${shapeSvg('bot', '', 28)}</span><span class="phone__who"><b>claxen_demo_bot</b><small>bot</small></span></div>
           <div class="chat" data-chat role="log" aria-live="polite" aria-label="Demo bot conversation">
             <p class="msg msg--bot">Hi, I&rsquo;m the CLAXEN demo bot. What would you like to do?</p>
@@ -137,7 +137,7 @@ function demos() {
           <p>A lot of automation is a small program that takes a command and does something useful. Type <code>help</code> to see what this one knows, or tap a command.</p>
           <ul class="ticks"><li>Runs anywhere Python runs</li><li>Logs what it did</li><li>Alerts you when it fails</li></ul>
         </div>
-        <div class="term" data-term>
+        <div class="term" data-term data-e3d="r">
           <div class="term__bar" aria-hidden="true"><i></i><i></i><i></i><span>claxen &mdash; bash</span></div>
           <div class="term__out" data-term-out role="log" aria-live="polite"><p>CLAXEN shell 1.0. Type <b>help</b> to list commands.</p></div>
           <form class="term__form" data-term-form autocomplete="off">
@@ -156,7 +156,7 @@ function demos() {
           <p>AI tools are good at reading long text for you. This demo does a simple version with plain code in your browser, so you can see the kind of job I would automate. A real AI tool does it better and connects to your apps.</p>
           <ul class="ticks"><li>Summaries of long messages</li><li>Tasks, dates and amounts pulled out</li><li>Reply drafts for review</li></ul>
         </div>
-        <div class="tt" data-tt>
+        <div class="tt" data-tt data-e3d>
           <label class="tt__label" for="tt-in">Paste any text</label>
           <textarea class="tt__in" id="tt-in" rows="7" data-tt-in spellcheck="false">Hi Claxen, we run a small online shop and answer the same questions on Telegram all day. Customers ask about delivery times, prices and order status. We need a bot that answers these and passes real problems to us. Our budget is around $400 and we would like it live by 15 November. Please send a quote and tell us if you need our product list first.</textarea>
           <div class="chips">
@@ -182,6 +182,7 @@ function process() {
       <p class="eyebrow"><span class="num">03</span>How a project runs</p>
       <h2 class="display h2" id="process-h" data-kinetic><span class="line"><span class="line__in">Four steps.</span></span> <span class="line"><span class="line__in">No surprises.</span></span></h2>
       <p class="sec__lead">You always know what is happening, what it costs and what comes next.</p>
+      <div class="stage stage--steps" data-3d="steps" aria-hidden="true"></div>
     </header>
     <ol class="steps" data-steps>${steps}</ol>
   </div>
@@ -195,6 +196,7 @@ function pricing() {
       <p class="eyebrow"><span class="num">04</span>Pricing</p>
       <h2 class="display h2" id="pricing-h" data-kinetic><span class="line"><span class="line__in">From $${cfg.priceMin}</span></span> <span class="line"><span class="line__in">to $${cfg.priceMax.toLocaleString('en-US')}.</span></span></h2>
       <p class="sec__lead">Small jobs and big builds both get a fixed quote before any work starts. Slide to see what a budget usually covers.</p>
+      <div class="stage stage--city" data-3d="city" aria-hidden="true"></div>
     </header>
     <div class="budget" data-budget>
       <div class="budget__top">
@@ -240,7 +242,7 @@ function contact() {
         <li><span>My clock</span><b data-clock>IST</b></li>
       </ul>
     </div>
-    <form class="brief" data-brief novalidate>
+    <form class="brief" data-brief novalidate data-e3d="y">
       <fieldset class="field">
         <legend>What do you need?</legend>
         <div class="kinds">${kinds.map(([v, t], i) => `<label class="kind"><input type="radio" name="kind" value="${t}"${i === 0 ? ' checked' : ''}><span>${t}</span></label>`).join('')}</div>
@@ -255,7 +257,7 @@ function contact() {
       </div>
       <label class="field"><span>What should it do?</span><textarea name="about" rows="4" placeholder="A few lines is enough. Links to something similar help."></textarea></label>
     </form>
-    <aside class="ticket" aria-label="Your brief">
+    <aside class="ticket" aria-label="Your brief" data-e3d="r">
       <p class="ticket__h">Your brief</p>
       <pre class="ticket__body" data-ticket aria-live="polite">Project: Website
 Budget: $250
@@ -282,7 +284,7 @@ function render(ctx) {
   };
   meta.jsonld = homeGraph(meta);
   const body = [hero(h), services(h), stack(), demos(), process(), pricing(), faq(), contact()].join('\n');
-  return { meta, body, scripts: ['site', 'home'] };
+  return { meta, body, scripts: ['site', 'fx', 'home'] };
 }
 
 module.exports = { render };

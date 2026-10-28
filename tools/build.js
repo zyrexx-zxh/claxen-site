@@ -103,7 +103,7 @@ function buildTo(outDir, mode) {
   ].join('\n'));
   write(path.join(outDir, 'site.webmanifest'), JSON.stringify({
     name: 'CLAXEN', short_name: 'CLAXEN', description: 'Freelance developer: websites, bots, automations and AI tools.',
-    start_url: './', scope: './', display: 'standalone', background_color: '#F3F4F7', theme_color: '#2A3BFF',
+    start_url: './', scope: './', display: 'standalone', background_color: '#16141B', theme_color: '#16141B',
     icons: [
       { src: 'assets/img/icon-192.png', sizes: '192x192', type: 'image/png' },
       { src: 'assets/img/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }

@@ -26,6 +26,7 @@
   function setT(t, from) {
     state.t = clamp(Math.round(t), 0, 100);
     subs.forEach(function (fn) { fn(from); });
+    doc.dispatchEvent(new CustomEvent('cx-budget', { detail: state.t }));
   }
 
   /* ---------- hero loop ---------- */
@@ -43,10 +44,11 @@
       packet.setAttribute('transform', 'translate(' + (CX0 + R * Math.cos(a)).toFixed(1) + ' ' + (CY0 + R * Math.sin(a)).toFixed(1) + ')');
       var d = ((p % 4) + 4) % 4 / 4 * 1000;
       trail.style.strokeDashoffset = (150 - d).toFixed(1);
+      box.__pos = p;
     }
     function activate(i) {
       if (i === active) return;
-      active = i;
+      active = i; box.__active = i;
       nodes.forEach(function (n, k) { n.classList.toggle('is-active', k === i); });
       var n = nodes[i];
       if (!n) return;
@@ -70,15 +72,14 @@
         if (k >= 1) { moving = false; wait = 1400; activate(((Math.round(to) % 4) + 4) % 4); }
       } else {
         wait -= dt;
-        if (wait <= 0) { from = pos; to = pos + 1; prog = 0; dur = 1100; moving = true; nodes.forEach(function (n) { n.classList.remove('is-active'); }); active = -2; }
+        if (wait <= 0) { from = pos; to = pos + 1; prog = 0; dur = 1100; moving = true; nodes.forEach(function (n) { n.classList.remove('is-active'); }); active = -2; box.__active = -2; }
       }
     }
     function jump(i) {
       var cur = ((Math.round(pos) % 4) + 4) % 4, d = ((i - cur) % 4 + 4) % 4;
       if (d > 2) d -= 4;
       from = pos; to = Math.round(pos) + d; prog = 0; dur = 520; moving = true;
-      active = -2; activate(i); wait = 2200;
-      if (reduce) { pos = to; setPacket(pos); moving = false; }
+      active = -2; box.__active = -2; activate(i); wait = 2200;
     }
     nodes.forEach(function (n, i) {
       n.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { paused = true; jump(i); } });
@@ -86,8 +87,10 @@
       n.addEventListener('blur', function () { paused = false; });
     });
     box.addEventListener('pointerleave', function () { paused = false; });
+    /* the 3D ring reports hover over a machine; treat it like hovering the SVG node */
+    box.addEventListener('node-hover', function (e) { paused = true; jump(e.detail); });
+    box.addEventListener('node-leave', function () { paused = false; });
     setPacket(0); activate(0);
-    if (reduce) return;
     box.classList.add('is-live');
     if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(box);
     last = performance.now(); raf = requestAnimationFrame(frame);

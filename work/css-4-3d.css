@@ -1,0 +1,63 @@
+/* ----- 3D layer: WebGL slots + CSS 3D scroll effects ---------------------------------------------- */
+.stage__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:1;opacity:0;transition:opacity .9s var(--ease)}
+.has-3d>.stage__canvas{opacity:1}
+.loop.has-3d .loop__svg,.svc__art.has-3d .svc__shape,.shero__art.has-3d .shero__shape{opacity:0;transition:opacity .6s}
+.loop.has-3d .loop__svg{pointer-events:none}
+.loop__center{z-index:2}
+.loop[data-3d]{touch-action:pan-y}
+.stage--city{position:relative;width:min(100%,440px);aspect-ratio:5/4;margin-top:clamp(6px,1.5vw,18px)}
+.shero__art[data-3d]{aspect-ratio:1;width:min(100%,520px)}
+.shero__art.has-3d .shero__shape{animation:none}
+
+/* entrance: panels swing in from depth as they rise into view (--e goes 1 to 0, set by fx.js) */
+[data-e3d]{transform:perspective(1100px) rotateX(calc(var(--e,0)*13deg)) translateY(calc(var(--e,0)*34px));opacity:calc(1 - var(--e,0)*.7);transform-origin:50% 100%}
+[data-e3d="y"]{transform:perspective(1100px) rotateY(calc(var(--e,0)*17deg)) translateX(calc(var(--e,0)*-30px));transform-origin:0 50%}
+[data-e3d="r"]{transform:perspective(1100px) rotateY(calc(var(--e,0)*17deg)) translateX(calc(var(--e,0)*34px));transform-origin:100% 50%}
+.svc[data-e3d]{opacity:calc(1 - var(--e,0)*.5);transform-origin:50% 0}
+
+/* glare that follows the pointer across a service card */
+.svc:not(.svc--mini)::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;opacity:0;transition:opacity .4s;background:radial-gradient(520px circle at var(--gx,50%) var(--gy,50%),rgba(255,247,230,.16),transparent 62%)}
+.svc.is-tilt::after{opacity:1}
+.svc.is-tilt{transition:box-shadow .4s}
+
+/* hero: soft light that follows the cursor, copy drifts back as you scroll */
+.hero{--mx:72%;--my:34%}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(560px circle at var(--mx) var(--my),color-mix(in srgb,var(--accent) 13%,transparent),transparent 68%)}
+.hero__grid,.hero .marquee{position:relative;z-index:1}
+.hero__copy{transform:translate3d(0,calc(var(--hp,0)*56px),0);opacity:calc(1 - var(--hp,0)*.65)}
+
+/* marquee leans into the scroll direction */
+.marquee ul{transform:skewX(calc(var(--skew,0)*1deg));transition:transform .12s linear}
+
+/* process numbers flip up into place */
+.js-ready .step__n{transform:perspective(600px) rotateX(78deg);transform-origin:50% 100%;transition:transform .9s var(--spring),font-variation-settings .6s var(--ease)}
+.js-ready .step.is-on .step__n{transform:none}
+
+/* footer wordmark: letters tip up into place as the footer arrives */
+.foot__word span{transform:perspective(700px) rotateX(calc(var(--fe,0)*88deg)) translateY(calc(var(--fe,0)*28%));transform-origin:50% 100%}
+
+@media (max-width:960px){
+  [data-e3d="y"],[data-e3d="r"]{transform:perspective(900px) rotateX(calc(var(--e,0)*11deg)) translateY(calc(var(--e,0)*28px));transform-origin:50% 100%}
+  .stage--city{width:min(100%,360px)}
+  .shero__art[data-3d]{width:min(46%,240px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero__copy{transform:none;opacity:1}
+  .marquee ul{transform:none}
+  [data-e3d],[data-e3d="y"],[data-e3d="r"]{transform:none;opacity:1}
+  .js-ready .step__n{transform:none}
+  .foot__word span{transform:none}
+}
+
+/* transforms on off-screen elements must never widen the page */
+main{overflow-x:clip}
+.stage--steps{position:relative;width:min(100%,470px);aspect-ratio:1.2;margin-top:clamp(4px,1.5vw,20px)}
+@media (max-width:960px){.stage--steps{width:min(100%,380px)}}
+.foot__word{color:color-mix(in srgb,var(--b-fg) 80%,var(--b-bg))}
+
+/* wrapping service headings keep a fixed width so the intro never re-flows the page */
+@media (max-width:640px){.shero__h1 .line__in{--w:92!important}}
+
+/* list rows slide up flat so long lists never change their measured height */
+.js-ready .qa.rv,.js-ready .get.rv{transform:translateY(26px)}
+.js-ready .qa.rv.in,.js-ready .get.rv.in{transform:none}

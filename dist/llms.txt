@@ -1,0 +1,19 @@
+# CLAXEN
+
+> Claxen is a freelance developer who builds custom websites, Telegram and Discord bots, Python automations and AI tools. Projects range from $10 to $10,000.
+
+## Services
+
+- [Website development](https://your-domain.example/website-development/): Fast, responsive sites and web apps that look the part and get found on Google.
+- [Bot development](https://your-domain.example/bot-development/): Telegram and Discord bots that answer, sell, moderate and run your community around the clock.
+- [Python automations](https://your-domain.example/python-automation/): Scripts and backends that remove repetitive work: scraping, reports, integrations and scheduled jobs.
+- [AI automated tools](https://your-domain.example/ai-automation-tools/): AI-powered tools and agents that write, summarise and decide, wired into the apps you already use.
+
+## Contact
+
+- Email: claxen@outlook.com
+- Telegram: https://t.me/claxen
+
+## Optional
+
+- [Home](https://your-domain.example/): overview, demos, pricing guide and FAQ
